@@ -15,6 +15,8 @@
 		E44179B228DCB1E700760E91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44179B128DCB1E700760E91 /* Assets.xcassets */; };
 		E44179B528DCB1E700760E91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E44179B328DCB1E700760E91 /* LaunchScreen.storyboard */; };
 		E467BDB228DCBF0A00039C47 /* AIIBannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467BDB128DCBF0A00039C47 /* AIIBannerViewCell.swift */; };
+		E467BDB428DCBFC400039C47 /* AIIBannerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467BDB328DCBFC400039C47 /* AIIBannerPageView.swift */; };
+		E467BDB628DCC3F100039C47 /* AIIBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467BDB528DCC3F100039C47 /* AIIBannerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		E44179B428DCB1E700760E91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E44179B628DCB1E700760E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E467BDB128DCBF0A00039C47 /* AIIBannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIBannerViewCell.swift; sourceTree = "<group>"; };
+		E467BDB328DCBFC400039C47 /* AIIBannerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIBannerPageView.swift; sourceTree = "<group>"; };
+		E467BDB528DCC3F100039C47 /* AIIBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIBannerView.swift; sourceTree = "<group>"; };
 		FA01D1111AE50F9C5CD227FD /* Pods-Learing_Banner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learing_Banner.debug.xcconfig"; path = "Target Support Files/Pods-Learing_Banner/Pods-Learing_Banner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +90,8 @@
 				E44179AA28DCB1E600760E91 /* SceneDelegate.swift */,
 				E44179AC28DCB1E600760E91 /* ViewController.swift */,
 				E44179AE28DCB1E600760E91 /* Main.storyboard */,
+				E467BDB528DCC3F100039C47 /* AIIBannerView.swift */,
+				E467BDB328DCBFC400039C47 /* AIIBannerPageView.swift */,
 				E467BDB128DCBF0A00039C47 /* AIIBannerViewCell.swift */,
 				E44179B128DCB1E700760E91 /* Assets.xcassets */,
 				E44179B328DCB1E700760E91 /* LaunchScreen.storyboard */,
@@ -211,6 +217,8 @@
 			files = (
 				E44179AD28DCB1E600760E91 /* ViewController.swift in Sources */,
 				E44179A928DCB1E600760E91 /* AppDelegate.swift in Sources */,
+				E467BDB628DCC3F100039C47 /* AIIBannerView.swift in Sources */,
+				E467BDB428DCBFC400039C47 /* AIIBannerPageView.swift in Sources */,
 				E467BDB228DCBF0A00039C47 /* AIIBannerViewCell.swift in Sources */,
 				E44179AB28DCB1E600760E91 /* SceneDelegate.swift in Sources */,
 			);
