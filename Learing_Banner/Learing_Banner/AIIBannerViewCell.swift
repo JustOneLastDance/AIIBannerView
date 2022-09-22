@@ -15,6 +15,7 @@ class AIIBannerViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        addSubview(imageView!)
     }
     
     required init?(coder: NSCoder) {

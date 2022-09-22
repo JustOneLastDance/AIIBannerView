@@ -29,7 +29,7 @@ class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectio
         delegate = self
         dataSource = self
         register(AIIBannerViewCell.self, forCellWithReuseIdentifier: kAIIBannerViewCellIdentifier)
-        backgroundColor = .green
+        backgroundColor = .white
         isPagingEnabled = true
         showsHorizontalScrollIndicator = false
         bounces = false
@@ -55,8 +55,11 @@ extension AIIBannerPageView {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kAIIBannerViewCellIdentifier, for: indexPath) as! AIIBannerViewCell
         
-        if let url = URL(string: (urls?[indexPath.row])!) {
-            cell.imageView?.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+        if let url = URL(string: (urls?[indexPath.row]) ?? "") {
+            print("======start====")
+            cell.imageView?.kf.setImage(with: url, placeholder: nil, options: [.forceRefresh], progressBlock: { receivedSize, totalSize in
+                print("\(indexPath.row + 1):\(receivedSize)/\(totalSize)")
+            }, completionHandler: nil)
         }
         
         return cell
