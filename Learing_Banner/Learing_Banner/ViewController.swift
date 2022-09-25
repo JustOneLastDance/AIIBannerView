@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     func setupUI() {
         bannerView = AIIBannerView(frame: CGRect(x: 0, y: 60, width: view.bounds.width, height: 300))
         let urls = [
+            "http://img.558idc.com/uploadfile/allimg/210405/212H15207-3.jpg",
             "https://cdn-1.blushmark.com/blushmark/upimg/d8/bd/3269b7e78582be3d7d17c194cc32fe8b4d48d8bd.jpg",
             "https://cdn-1.blushmark.com/blushmark/upimg/bd/f8/8c836e32bced64eef2a8d916d50081a38819bdf8.jpg"
         ]
