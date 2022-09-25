@@ -17,6 +17,8 @@ let kAIIBannerViewCellIdentifier = "kAIIBannerViewCellIdentifier"
 
 class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    fileprivate var timer: Timer?
+    
     // 利用委托实现图片指示器
     var bannerPageViewDelegate: BannerPageControlDelegate?
     
@@ -50,6 +52,8 @@ class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectio
         self.urls = urls
         
         aii_reloadData()
+        
+        startTimer()
     }
     
     func setLoop(_ loop: Bool) {
@@ -73,8 +77,42 @@ class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectio
     }
 }
 
-// 无限轮播要实现的委托方法 & 图片指示器
+// 定时器
 extension AIIBannerPageView {
+    private func startTimer() {
+        endTimer()
+        print("Timer Start!!!!")
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
+            self?.nextPage()
+        })
+    }
+    
+    private func nextPage() {
+        let index = Int(
+            (contentOffset.x / frame.size.width)
+                .rounded(.toNearestOrAwayFromZero)
+            )
+        scrollToItem(at: IndexPath(row: index + 1, section: 0),
+                     at: UICollectionView.ScrollPosition(rawValue: 0),
+                     animated: true)
+    }
+    
+    private func endTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+}
+
+// 无限轮播要实现的委托方法
+extension AIIBannerPageView {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        endTimer()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        startTimer()
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var index = Int(
