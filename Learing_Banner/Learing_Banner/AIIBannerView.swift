@@ -10,14 +10,21 @@
 import Foundation
 import UIKit
 
-class AIIBannerView: UIView {
+class AIIBannerView: UIView, BannerPageControlDelegate {
+    
     var bannerPageView: AIIBannerPageView?
+    private var pageControl: UIPageControl?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         bannerPageView = AIIBannerPageView(frame: frame, loop: true)
+        bannerPageView?.bannerPageViewDelegate = self
         addSubview(bannerPageView!)
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: bounds.maxY - 20, width: bounds.width, height: 0))
+        pageControl?.pageIndicatorTintColor = UIColor.systemGray5
+        pageControl?.currentPageIndicatorTintColor = UIColor.yellow
+        addSubview(pageControl!)
     }
     
     required init?(coder: NSCoder) {
@@ -28,7 +35,12 @@ class AIIBannerView: UIView {
 
 extension AIIBannerView {
     
+    func didPageChanged(index: Int) {
+        pageControl?.currentPage = index
+    }
+    
     func setData(_ urls: [String]) {
+        pageControl?.numberOfPages = urls.count
         bannerPageView?.setUrls(urls)
     }
 }

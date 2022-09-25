@@ -9,9 +9,16 @@ import Foundation
 import UIKit
 import Kingfisher
 
+protocol BannerPageControlDelegate: NSObjectProtocol {
+    func didPageChanged(index: Int)
+}
+
 let kAIIBannerViewCellIdentifier = "kAIIBannerViewCellIdentifier"
 
 class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    // 利用委托实现图片指示器
+    var bannerPageViewDelegate: BannerPageControlDelegate?
     
     // 是否设置为无限循环播放
     fileprivate var loop: Bool = true
@@ -41,6 +48,7 @@ class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectio
     
     func setUrls(_ urls: [String]) {
         self.urls = urls
+        
         aii_reloadData()
     }
     
@@ -65,8 +73,34 @@ class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectio
     }
 }
 
-// 无限轮播要实现的委托方法
+// 无限轮播要实现的委托方法 & 图片指示器
 extension AIIBannerPageView {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var index = Int(
+            (contentOffset.x / frame.size.width)
+                .rounded(.toNearestOrAwayFromZero)
+        )
+        
+        if loop {
+            // 以 [c, a, b, c, a] 为例子进行判断
+            if index == 0 {
+                // 为0表示已经滑到数组的最左侧的图片，即c，此时应该让轮播器显示另一个相同的图片c
+                scrollToItem(at: IndexPath(row: urls!.count - 2, section: 0), at: UICollectionView.ScrollPosition(rawValue: 0), animated: false)
+                index = urls!.count - 3
+            } else if index == urls!.count - 1 {
+                // 为最后表示已经滑到数组的最右侧的图片，即a，此时应该让轮播器显示另一个相同的图片a
+                scrollToItem(at: IndexPath(row: 1, section: 0), at: UICollectionView.ScrollPosition(rawValue: 0), animated: false)
+                index = 0
+            } else {
+                index -= 1
+            }
+        }
+        
+        bannerPageViewDelegate?.didPageChanged(index: index)
+        
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // 通过偏移量计算图片的下标
         let index = Int(contentOffset.x / frame.size.width)
@@ -92,7 +126,8 @@ extension AIIBannerPageView {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return urls?.count ?? 0
+        let numOfItems = urls?.count ?? 0
+        return numOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
