@@ -39,6 +39,10 @@ extension AIIBannerView {
         pageControl?.currentPage = index
     }
     
+    func didClickCell(index: Int) {
+        print("BannerView 进行跳转: \(index)")
+    }
+    
     func setData(_ urls: [String]) {
         pageControl?.numberOfPages = urls.count
         bannerPageView?.setUrls(urls)

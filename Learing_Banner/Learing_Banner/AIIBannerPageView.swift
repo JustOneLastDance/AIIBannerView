@@ -9,8 +9,16 @@ import Foundation
 import UIKit
 import Kingfisher
 
-protocol BannerPageControlDelegate: NSObjectProtocol {
+@objc protocol BannerPageControlDelegate: NSObjectProtocol {
+    
+    /// 用于设置 pageControl 显示当前图片 Index
+    /// - Parameter index: the index of picture
     func didPageChanged(index: Int)
+    
+    
+    /// 用于实现点击 cell 之后的后续操作
+    /// - Parameter index: the index of cell which clicked
+    @objc optional func didClickCell(index: Int)
 }
 
 let kAIIBannerViewCellIdentifier = "kAIIBannerViewCellIdentifier"
@@ -35,7 +43,7 @@ class AIIBannerPageView: UICollectionView, UICollectionViewDelegate, UICollectio
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
-        self.init(frame: frame, collectionViewLayout: layout)
+        self.init(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
         
         delegate = self
         dataSource = self
@@ -82,7 +90,7 @@ extension AIIBannerPageView {
     private func startTimer() {
         endTimer()
         print("Timer Start!!!!")
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { [weak self] _ in
             self?.nextPage()
         })
     }
@@ -105,6 +113,11 @@ extension AIIBannerPageView {
 
 // 无限轮播要实现的委托方法
 extension AIIBannerPageView {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Did Click No.\(indexPath.row) cell")
+        self.bannerPageViewDelegate?.didClickCell?(index: indexPath.row)
+    }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         endTimer()
